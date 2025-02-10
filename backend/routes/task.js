@@ -12,10 +12,10 @@ router.post("/create-task", authenticateToken, async (req, res) => {
         const saveTask = await newTask.save()
         const taskId = saveTask._id
         await User.findByIdAndUpdate(id, {$push:{ tasks:taskId } })
-        res.status(200).json({ message: "Task Created"})
+        res.status(200).json({ message: "Tugas Terbuat"})
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -30,7 +30,7 @@ router.get("/get-all-tasks", authenticateToken, async (req, res) => {
         res.status(200).json({ data: userData })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -41,10 +41,10 @@ router.delete("/delete-task/:id", authenticateToken, async (req, res) => {
         const userId = req.headers.id
         await Task.findByIdAndDelete(id)
         await User.findByIdAndUpdate(userId,{ $pull: { tasks: id } })
-        res.status(200).json({ message: "Task deleted successfuly" })
+        res.status(200).json({ message: "Tugas berhasil dihapus" })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -54,10 +54,10 @@ router.put("/update-task/:id", authenticateToken, async (req, res) => {
         const { id } = req.params
         const { title, desc } = req.body
         await Task.findByIdAndUpdate( id, { title: title, desc: desc })
-        res.status(200).json({ message: "Task updated successfuly" })
+        res.status(200).json({ message: "Tugas berhasil diperbarui" })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -68,10 +68,10 @@ router.put("/update-imp-task/:id", authenticateToken, async (req, res) => {
         const TaskData = await Task.findById( id )
         const ImpTask = TaskData.important
         await Task.findByIdAndUpdate( id, { important: !ImpTask })
-        res.status(200).json({ message: "Task updated successfuly" })
+        res.status(200).json({ message: "berhasil diperbarui" })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -82,10 +82,10 @@ router.put("/update-complete-task/:id", authenticateToken, async (req, res) => {
         const TaskData = await Task.findById( id )
         const CompleteTask = TaskData.complete
         await Task.findByIdAndUpdate( id, { complete: !CompleteTask })
-        res.status(200).json({ message: "Task updated successfuly" })
+        res.status(200).json({ message: "Tugas berhasil diperbarui" })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -102,7 +102,7 @@ router.get("/get-imp-tasks", authenticateToken, async (req, res) => {
         res.status(200).json({ data: ImpTaskData })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -119,7 +119,7 @@ router.get("/get-complete-tasks", authenticateToken, async (req, res) => {
         res.status(200).json({ data: CompTaskData })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -136,7 +136,7 @@ router.get("/get-incomplete-tasks", authenticateToken, async (req, res) => {
         res.status(200).json({ data: CompTaskData })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 module.exports = router
