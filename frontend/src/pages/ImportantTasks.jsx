@@ -21,7 +21,7 @@ useEffect(() => {
 })
 
   return (
-    <div>
+    <div className='max-w-screen-lg mx-auto px-4'>
       <Cards home={"false"} data={Data} />
     </div>
   )
