@@ -43,7 +43,7 @@ router.post("/log-in", async(req, res) => {
         {
             return res
             .status(400)
-            .json({ message: "Username Tidak dapat ditemukan" })
+            .json({ message: "Username atau Password anda salah" })
         }
         bcrypt.compare(password, existingUser.password,(err,data) => {
             if(data){
@@ -53,7 +53,7 @@ router.post("/log-in", async(req, res) => {
             } else {
                 return res
                 .status(400)
-                .json({ message: "Username Tidak dapat ditemukan" })
+                .json({ message: "Username atau Password anda salah" })
             }
         })
 })
