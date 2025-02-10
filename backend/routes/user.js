@@ -12,14 +12,14 @@ router.post("/sign-in", async (req, res) => {
     const existingEmail = await User.findOne({ email: email })
     if (existingUser)
     {
-        return res.status(400).json({ message: "Username already exist" })
+        return res.status(400).json({ message: "Username sudah digunakan" })
     } else if (username.length < 4) {
         return res
         .status(400)
-        .json ({ message: "Username should have atleast 4 characters" })
+        .json ({ message: "Username harus lebih dari 4 karakter" })
     }
     if (existingEmail) {
-        return res.status(400).json({ message: "Email already exists "})
+        return res.status(400).json({ message: "Email harap diisi"})
     }
     const hashPass = await bcrypt.hash(req.body.password, 10)
     const newUser = new User({ 
@@ -28,10 +28,10 @@ router.post("/sign-in", async (req, res) => {
         password: hashPass
     })
         await newUser.save()
-        return res.status(200).json({ message: "SignIn succesfully" })
+        return res.status(200).json({ message: "Pendaftaran berhasil" })
     } catch (error) {
         console.log(error)
-        res.status(400).json({ message: "Internal Server Error" })
+        res.status(400).json({ message: "Kesalahan Sistem" })
     }
 })
 
@@ -43,7 +43,7 @@ router.post("/log-in", async(req, res) => {
         {
             return res
             .status(400)
-            .json({ message: "Invalid Credentials" })
+            .json({ message: "Tidak dapat ditemukan" })
         }
         bcrypt.compare(password, existingUser.password,(err,data) => {
             if(data){
@@ -53,7 +53,7 @@ router.post("/log-in", async(req, res) => {
             } else {
                 return res
                 .status(400)
-                .json({ message: "Invalid Credentials" })
+                .json({ message: "Tidak dapat ditemukan" })
             }
         })
 })
